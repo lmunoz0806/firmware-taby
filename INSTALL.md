@@ -22,8 +22,11 @@ and can install the complete release directly on a supported new board.
 | Board argument | Exact hardware | Flash |
 | --- | --- | --- |
 | `amoled-1.64` | Waveshare ESP32-S3-Touch-AMOLED-1.64 **V1** | 16 MB |
-| `amoled-1.64-v2` | Waveshare ESP32-S3-Touch-AMOLED-1.64 **V2** | 16 MB |
+| `amoled-1.64-v2` | Waveshare ESP32-S3-Touch-AMOLED-1.64 **V2** ¹ | 16 MB |
 | `round-1.32` | Waveshare ESP32-S3-Touch-AMOLED-1.32 | 8 MB |
+
+¹ Display, touch, and tilt are tested on hardware. BOOT-button recovery and the
+Taby app connection are not yet verified on V2.
 
 **An ESP32-S3 chip ID or USB VID/PID cannot identify the display or PCB revision.**
 The 1.64 V1 and V2 need different bundles: V2 moved the display chip-select,
@@ -96,6 +99,9 @@ problem using the USB section below.
   when the existing display works correctly. Do not ask the user to read a PCB
   marking again if this working target is already established. `amoled-1.64`
   currently maps to V1; `amoled-1.64-v2` to V2; `round-1.32` maps to the original round board.
+  A 1.64 V2 running an `amoled-1.64` bundle (every release through 1.2.0)
+  reports `amoled-1.64`, passes `verify`, and shows a black screen. Ask whether
+  the screen works before reusing a 1.64 target; if it is black, check the PCB marking.
 - **`unknown` or no Taby reply:** older firmware (including the tested 1.0.6
   build), blank boards, and vendor demos may not report a target. Ask for the
   board marking, order details that specify the revision, or a clear PCB photo.
@@ -224,7 +230,9 @@ calling a tool on the Taby app's maintained MCP interface and checking its resul
   reset without writing flash. Wait a few seconds, list ports, and run `verify`.
   If software reset fails, use the board's buttons below.
 - **1.64 V1:** hold BOOT, press/release RESET, then release BOOT.
-- **1.64 V2:** same buttons as V1 (V2 adds an RC circuit to BOOT); not yet tested.
+- **1.64 V2:** not yet tested. Try the V1 buttons. V2 adds an RC circuit to BOOT and
+  moves display chip-select to GPIO46, an ESP32-S3 strapping pin
+  ([Waveshare revision notes](https://docs.waveshare.com/ESP32-S3-Touch-AMOLED-1.64)).
 - **Round 1.32:** hold BOOT while powering the board on again, then release BOOT.
   Follow [Waveshare's board guide](https://docs.waveshare.com/ESP32-S3-Touch-AMOLED-1.32).
 - List ports again; bootloader and running firmware can enumerate differently.

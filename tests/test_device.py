@@ -50,6 +50,12 @@ class DeviceTests(unittest.TestCase):
         self.assertFalse(result["physical_revision_verified"])
         self.assertNotIn("setup_ap_password", result["device"])
 
+    def test_reused_target_requires_a_working_screen_first(self):
+        # A 1.64 V2 running an amoled-1.64 bundle reports amoled-1.64 and shows a black screen.
+        result = device.identify({"hardware_target": "amoled-1.64"})
+        self.assertIn("black screen", result["next_step"])
+        self.assertIn("PCB marking", result["next_step"])
+
     def test_v2_firmware_metadata_selects_the_v2_target(self):
         result = device.identify({"hardware_target": "amoled-1.64-v2",
                                   "display_width": 280, "display_height": 456})
