@@ -230,13 +230,13 @@ calling a tool on the Taby app's maintained MCP interface and checking its resul
   reset without writing flash. Wait a few seconds, list ports, and run `verify`.
   If software reset fails, use the board's buttons below.
 - **1.64 V1:** hold BOOT, press/release RESET, then release BOOT.
-- **1.64 V2:** unplug USB, hold BOOT, plug USB back in, then release BOOT. Do not
-  use the V1 BOOT+RESET sequence: on V2 it leaves the board with no USB port
-  until RESET is pressed alone. V2 moved display chip-select to GPIO46, an
-  ESP32-S3 strapping pin, which is the likely reason
+- **1.64 V2:** hold BOOT, press and release RESET, keep holding BOOT for about
+  two more seconds, then release BOOT. Hurried presses can miss download mode;
+  V2 adds an RC circuit to BOOT
   ([Waveshare revision notes](https://docs.waveshare.com/ESP32-S3-Touch-AMOLED-1.64)).
-  After flashing, press RESET alone to start Taby; `device.py reset` does not
-  leave button-entered download mode.
+  Holding BOOT while plugging in USB also works. The face freezes in download
+  mode. After flashing, press RESET alone to start Taby; `device.py reset` does
+  not leave button-entered download mode.
 - **Round 1.32:** hold BOOT while powering the board on again, then release BOOT.
   Follow [Waveshare's board guide](https://docs.waveshare.com/ESP32-S3-Touch-AMOLED-1.32).
 - List ports again; bootloader and running firmware can enumerate differently.
