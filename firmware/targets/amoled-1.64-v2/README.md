@@ -19,4 +19,7 @@ python tools/package_release.py amoled-1.64-v2
 ```
 
 A V1 image on a V2 board, or the reverse, leaves the screen black.
+
+For manual download mode, keep BOOT held about two seconds after releasing
+RESET, or hold BOOT while plugging in USB (see [INSTALL.md](../../../INSTALL.md)).
 Source: [Waveshare 1.64 documentation](https://docs.waveshare.com/ESP32-S3-Touch-AMOLED-1.64).

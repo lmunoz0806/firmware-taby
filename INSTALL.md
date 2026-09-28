@@ -25,8 +25,8 @@ and can install the complete release directly on a supported new board.
 | `amoled-1.64-v2` | Waveshare ESP32-S3-Touch-AMOLED-1.64 **V2** ¹ | 16 MB |
 | `round-1.32` | Waveshare ESP32-S3-Touch-AMOLED-1.32 | 8 MB |
 
-¹ Display, touch, and tilt are tested on hardware. BOOT-button recovery and the
-Taby app connection are not yet verified on V2.
+¹ Display, touch, tilt, and BOOT-button recovery (see below) are tested on
+hardware. The Taby app connection is not yet verified on V2.
 
 **An ESP32-S3 chip ID or USB VID/PID cannot identify the display or PCB revision.**
 The 1.64 V1 and V2 need different bundles: V2 moved the display chip-select,
@@ -230,9 +230,13 @@ calling a tool on the Taby app's maintained MCP interface and checking its resul
   reset without writing flash. Wait a few seconds, list ports, and run `verify`.
   If software reset fails, use the board's buttons below.
 - **1.64 V1:** hold BOOT, press/release RESET, then release BOOT.
-- **1.64 V2:** not yet tested. Try the V1 buttons. V2 adds an RC circuit to BOOT and
-  moves display chip-select to GPIO46, an ESP32-S3 strapping pin
+- **1.64 V2:** hold BOOT, press and release RESET, keep holding BOOT for about
+  two more seconds, then release BOOT. Hurried presses can miss download mode;
+  V2 adds an RC circuit to BOOT
   ([Waveshare revision notes](https://docs.waveshare.com/ESP32-S3-Touch-AMOLED-1.64)).
+  Holding BOOT while plugging in USB also works. The face freezes in download
+  mode. After flashing, press RESET alone to start Taby; `device.py reset` does
+  not leave button-entered download mode.
 - **Round 1.32:** hold BOOT while powering the board on again, then release BOOT.
   Follow [Waveshare's board guide](https://docs.waveshare.com/ESP32-S3-Touch-AMOLED-1.32).
 - List ports again; bootloader and running firmware can enumerate differently.
